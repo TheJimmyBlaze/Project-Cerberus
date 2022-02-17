@@ -5,18 +5,25 @@
 @using Cerberus_UI.Data
 @inject WeatherForecastService ForecastService
 
-<h1>Weather forecast</h1>
+<div class="card border-primary shadow">
 
-<p>This component demonstrates fetching data from a service.</p>
+    <h3 class="card-header bg-primary text-light">Weather forecast</h3>
+
+    <div class="card-body">
 
 @if (forecasts == null)
 {
-    <p><em>Loading...</em></p>
+    <p>Preparing the good stuff...</p>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning w-75" role="progressbar"/>
+    </div>
 }
 else
 {
+    <p>This component demonstrates fetching data from a service.</p>
+
     <table class="table">
-        <thead>
+        <thead class="text-secondary">
             <tr>
                 <th>Date</th>
                 <th>Temp. (C)</th>
@@ -38,11 +45,16 @@ else
     </table>
 }
 
+    </div>
+</div>
+
 @code {
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(1500);
+
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }
 }
